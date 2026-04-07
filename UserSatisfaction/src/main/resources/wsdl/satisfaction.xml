@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://soap.satisfaction.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="UserSatisfactionService" targetNamespace="http://soap.satisfaction.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://soap.satisfaction.com/" elementFormDefault="unqualified" targetNamespace="http://soap.satisfaction.com/" version="1.0">
+
+  <xs:element name="predictSatisfaction" type="tns:predictSatisfaction"/>
+
+  <xs:element name="predictSatisfactionResponse" type="tns:predictSatisfactionResponse"/>
+
+  <xs:complexType name="predictSatisfaction">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="satisfactionRequest" type="tns:SatisfactionRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SatisfactionRequest">
+    <xs:sequence>
+      <xs:element name="businessId" type="xs:string"/>
+      <xs:element name="reviewText" type="xs:string"/>
+      <xs:element name="starsGiven" type="xs:double"/>
+      <xs:element default="0" name="usefulVotes" type="xs:int"/>
+      <xs:element default="0" name="funnyVotes" type="xs:int"/>
+      <xs:element default="0" name="coolVotes" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="predictSatisfactionResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="satisfactionResponse" type="tns:SatisfactionResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SatisfactionResponse">
+    <xs:sequence>
+      <xs:element name="satisfactionScore" type="xs:double"/>
+      <xs:element name="satisfactionLabel" type="xs:string"/>
+      <xs:element name="confidence" type="xs:double"/>
+      <xs:element name="explanation" type="xs:string"/>
+      <xs:element name="reviewCount" type="xs:long"/>
+      <xs:element name="businessAvgStars" type="xs:double"/>
+      <xs:element name="status" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="predictSatisfactionResponse">
+    <wsdl:part element="tns:predictSatisfactionResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="predictSatisfaction">
+    <wsdl:part element="tns:predictSatisfaction" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="UserSatisfactionService">
+    <wsdl:operation name="predictSatisfaction">
+      <wsdl:input message="tns:predictSatisfaction" name="predictSatisfaction">
+    </wsdl:input>
+      <wsdl:output message="tns:predictSatisfactionResponse" name="predictSatisfactionResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserSatisfactionServiceSoapBinding" type="tns:UserSatisfactionService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="predictSatisfaction">
+      <soap:operation soapAction="http://soap.satisfaction.com/predictSatisfaction" style="document"/>
+      <wsdl:input name="predictSatisfaction">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="predictSatisfactionResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserSatisfactionService">
+    <wsdl:port binding="tns:UserSatisfactionServiceSoapBinding" name="UserSatisfactionServicePort">
+      <soap:address location="http://localhost:8080/soap/satisfaction"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
