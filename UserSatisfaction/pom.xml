@@ -55,10 +55,12 @@
             quarkus-cxf: no <version> tag needed — managed by quarkus-cxf-bom above.
             This is the fix for "jar:unknown was not found".
         -->
+
         <dependency>
             <groupId>io.quarkiverse.cxf</groupId>
             <artifactId>quarkus-cxf</artifactId>
         </dependency>
+
         <!-- Stanford CoreNLP core -->
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
